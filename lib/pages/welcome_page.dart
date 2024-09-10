@@ -40,7 +40,7 @@ class _WelcomePageState extends State<WelcomePage> {
               child: Container(
                 margin: const EdgeInsets.only(top: 150, left: 20, right: 20),
                 child: index == 1
-                    ? Text("Seond")
+                    ? const Text("Seond")
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -54,10 +54,10 @@ class _WelcomePageState extends State<WelcomePage> {
                                 text: "Mountain",
                                 size: 30,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
-                              Container(
+                              SizedBox(
                                 width: 250,
                                 child: AppText(
                                   color: AppColors.textColor1,
@@ -65,7 +65,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                       "Mountain Hikes gives you an incredible sense of freedom along with endurance tests",
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 40,
                               ),
                               GestureDetector(
@@ -85,12 +85,13 @@ class _WelcomePageState extends State<WelcomePage> {
                             children: List.generate(
                                 3,
                                 (indexDots) => Container(
-                                      margin: EdgeInsets.only(bottom: 4),
+                                      margin: const EdgeInsets.only(bottom: 4),
                                       width: 8,
                                       height: index == indexDots ? 25 : 8,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(8),
-                                        color: index == indexDots? AppColors.mainColor
+                                        color: index == indexDots
+                                            ? AppColors.mainColor
                                             : AppColors.mainColor
                                                 .withOpacity(0.3),
                                       ),
