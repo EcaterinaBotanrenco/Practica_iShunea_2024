@@ -7,7 +7,7 @@ import 'package:travel_app_flutter/pages/navpages/main_page.dart';
 import 'package:travel_app_flutter/pages/welcome_page.dart';
 
 class AppCubitLogics extends StatefulWidget {
-  const AppCubitLogics({Key? key}) : super(key: key);
+  const AppCubitLogics({super.key});
 
   @override
   State<AppCubitLogics> createState() => _AppCubitLogicsState();
@@ -18,20 +18,19 @@ class _AppCubitLogicsState extends State<AppCubitLogics> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<AppCubits, CubitStates>(builder: (context, state) {
-        if (state is WelcomeState) {
-          return const WelcomePage();
-        } else if (state is LoadingState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (state is DetailState) {
+        if (state is DetailState) {
           return const DetailPage();
-        } else if (state is LoadedState) {
+        }if (state is WelcomeState) {
+          return const WelcomePage();
+        }if (state is LoadedState) {
           return const MainPage();
-        } else {
-          return Container();
-        }
-      }),
+        } if (state is LoadingState) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              return Container();
+            }
+          },
+      ),
     );
   }
 }
