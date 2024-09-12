@@ -33,7 +33,7 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
-        onTap: (i) => onTap(i),
+        onTap: onTap,
         selectedFontSize: 0, unselectedFontSize: 0,
         currentIndex: currentIndex,
         selectedItemColor: Colors.black54,
@@ -51,7 +51,7 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
             label: "Bar",
             icon: Icon(
-              Icons.bar_chart,
+              Icons.bar_chart_sharp,
             ),
           ),
           BottomNavigationBarItem(

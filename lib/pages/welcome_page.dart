@@ -7,7 +7,7 @@ import 'package:travel_app_flutter/widgets/app_text.dart';
 import 'package:travel_app_flutter/widgets/responsive_button.dart';
 
 class WelcomePage extends StatefulWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+  const WelcomePage({super.key});
 
   @override
   State<WelcomePage> createState() => _WelcomePageState();
@@ -24,7 +24,7 @@ class _WelcomePageState extends State<WelcomePage> {
     return Scaffold(
       body: PageView.builder(
           scrollDirection: Axis.vertical,
-          itemCount: 3,
+          itemCount: images.length,
           itemBuilder: (_, index) {
             // first parameter context and second parameter is index
             //we want to scroll up and down
@@ -38,10 +38,8 @@ class _WelcomePageState extends State<WelcomePage> {
                     fit: BoxFit.cover),
               ),
               child: Container(
-                margin: const EdgeInsets.only(top: 150, left: 20, right: 20),
-                child: index == 1
-                    ? const Text("Seond")
-                    : Row(
+                margin: const EdgeInsets.only(top: 100, left: 20, right: 20),
+                child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
@@ -60,7 +58,8 @@ class _WelcomePageState extends State<WelcomePage> {
                               SizedBox(
                                 width: 250,
                                 child: AppText(
-                                  color: AppColors.textColor1,
+                                  color: AppColors.textColor2,
+                                  size:14,
                                   text:
                                       "Mountain Hikes gives you an incredible sense of freedom along with endurance tests",
                                 ),
@@ -74,18 +73,18 @@ class _WelcomePageState extends State<WelcomePage> {
                                       .getData(); // we can run any method from the state usisng the block provider
                                 },
                                 child: Container(
-                                  child: ResponsiveButton(
-                                    width: 120,
+                                    width: 200,
+                                      child: Row(children:[ ResponsiveButton(width: 120)])),
                                   ),
-                                ),
-                              )
+                
+
                             ],
                           ),
                           Column(
                             children: List.generate(
                                 3,
                                 (indexDots) => Container(
-                                      margin: const EdgeInsets.only(bottom: 4),
+                                      margin: const EdgeInsets.only(bottom: 2),
                                       width: 8,
                                       height: index == indexDots ? 25 : 8,
                                       decoration: BoxDecoration(

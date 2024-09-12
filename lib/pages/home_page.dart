@@ -1,5 +1,6 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_app_flutter/cubit/app_cubit.dart';
 import 'package:travel_app_flutter/cubit/app_cubit_states.dart';
@@ -8,7 +9,7 @@ import 'package:travel_app_flutter/widgets/app_large_text.dart';
 import 'package:travel_app_flutter/widgets/app_text.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -33,7 +34,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         builder: (context, state) {
           if (state is LoadedState) {
             var info = state.places;
-            print(state);
+            
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -53,13 +54,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         height: 50,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.grey.withOpacity(.5)),
+                            color: Colors.grey.withOpacity(0.5)),
                       )
                     ],
                   ),
                 ), // for navbar
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Container(
                   margin: const EdgeInsets.only(left: 20),
@@ -68,7 +69,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
                 Container(
                   child: Align(
@@ -80,8 +81,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       isScrollable: true,
                       controller: tabController,
                       indicatorSize: TabBarIndicatorSize.label,
-                      indicator: CircleTabIndicator(
-                          color: AppColors.mainColor, radius: 3),
+                      indicator: CircleTabBarIndicator(
+                          color: AppColors.mainColor, radius: 4),
                       tabs: const [
                         Tab(
                           text: "Places",
@@ -97,7 +98,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                 ),
                 SizedBox(
-                  height: 200,
+                  height: 250,
                   width: double.maxFinite,
                   child: TabBarView(
                     controller: tabController,
@@ -111,12 +112,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 BlocProvider.of<AppCubits>(context).detailPage(info[index]);
                               },
                               child: Container(
-                                width: 140,
+                                width: 200,
                                 height: 300,
                                 margin: const EdgeInsets.only(
-                                    left: 10, right: 15, top: 10),
+                                     right: 15, top: 10),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(20),
                                   color: Colors.white,
                                   image: DecorationImage(
                                       image: NetworkImage(
@@ -126,16 +127,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               ),
                             );
                           }),
-                      const Text("2"),
-                      const Text("3")
+                      const Text("There"),
+                      const Text("Bye")
                     ],
                   ),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
+                Container(
+                  margin: const EdgeInsets.only(left: 20, right: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -151,23 +152,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Container(
                   margin: const EdgeInsets.only(left: 20),
                   width: double.maxFinite,
-                  height: 120,
+                  height: 100,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: 4,
                     itemBuilder: ((_, index) {
                       return Container(
-                        margin: const EdgeInsets.only(right: 20),
+                        margin: const EdgeInsets.only(right: 30),
                         child: Column(
                           children: [
                             Container(
-                              width: 80,
-                              height: 80,
+                              width: 70,
+                              height: 70,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: Colors.white,
@@ -178,8 +179,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               ),
                             ),
                             const SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
+                            // ignore: duplicate_ignore
+                            
                             Container(
                               child: AppText(
                                 text: images.values.elementAt(index),
@@ -204,11 +207,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 }
 
 //for the indicator circle
-class CircleTabIndicator extends Decoration {
+// ignore: must_be_immutable
+class CircleTabBarIndicator extends Decoration {
   final Color color;
   double radius;
 
-  CircleTabIndicator({required this.radius, required this.color});
+  CircleTabBarIndicator({required this.radius, required this.color});
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
     return _CirclePainter(color: color, radius: radius);

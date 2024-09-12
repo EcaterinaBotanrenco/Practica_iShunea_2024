@@ -9,14 +9,14 @@ import 'package:travel_app_flutter/widgets/app_text.dart';
 import 'package:travel_app_flutter/widgets/responsive_button.dart';
 
 class DetailPage extends StatefulWidget {
-  const DetailPage({Key? key}) : super(key: key);
+  const DetailPage({super.key});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
 }
 
 class _DetailPageState extends State<DetailPage> {
-  int gottenStarts = 3;
+  int gottenStarts = 4;
   int selectedIndex = 1;
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class _DetailPageState extends State<DetailPage> {
                   right: 0,
                   child: Container(
                     width: double.maxFinite,
-                    height: 370,
+                    height: 350,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                           image: NetworkImage(
@@ -44,30 +44,22 @@ class _DetailPageState extends State<DetailPage> {
               Positioned(
                   left: 20,
                   top: 50,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width - 20,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        IconButton(
-                          icon: const Icon(Icons.menu_rounded),
-                          color: Colors.white,
-                          onPressed: () {},
-                        ),
                         IconButton(
                           onPressed: () {
                             BlocProvider.of<AppCubits>(context).goHome();
                           },
-                          icon: const Icon(Icons.more_vert),
+                          icon: const Icon(Icons.menu),
                           color: Colors.white,
                         )
                       ],
                     ),
-                  )),
+                  ),
               Positioned(
-                top: 330,
+                top: 240,
                 child: Container(
-                  padding: const EdgeInsets.only(right: 20, left: 20, top: 30),
+                  padding: const EdgeInsets.only(right: 20, left: 20, top: 20),
                   width: MediaQuery.of(context).size.width,
                   height: 500,
                   decoration: const BoxDecoration(
@@ -76,60 +68,44 @@ class _DetailPageState extends State<DetailPage> {
                           topLeft: Radius.circular(30),
                           topRight: Radius.circular(30))),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           AppLargeText(
                             text: detailState.place.name,
-                            color: Colors.black54.withOpacity(0.8),
+                            color: Colors.black.withOpacity(0.8),
                           ),
                           AppLargeText(
-                              text: "\$${detailState.place.price}",
-                              color: Colors.black54)
+                              text: "\$${detailState.place.price.toString()}",
+                              color: AppColors.mainColor,)
                         ],
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       Row(children: [
-                        Icon(
-                          Icons.location_on,
-                          color: AppColors.mainColor,
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        AppText(
-                          text: detailState.place.location,
-                          color: AppColors.textColor1,
-                        ),
-                      ]),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        children: [
                           Wrap(
                               children: List.generate(5, (index) {
                             return Icon(
                               Icons.star,
                               color: index < detailState.place.stars
                                   ? AppColors.starColor
-                                  : AppColors.textColor1,
+                                  : AppColors.textColor2,
                             );
                           })),
                           const SizedBox(
                             width: 10,
                           ),
                           AppText(
-                            text: "(${detailState.place.stars.toDouble()})",
+                            text: "(5.0)",
                             color: AppColors.textColor2,
                           ),
                         ],
                       ),
                       const SizedBox(
-                        height: 15,
+                        height: 10,
                       ),
                       Row(children: [
                         AppLargeText(
@@ -141,12 +117,10 @@ class _DetailPageState extends State<DetailPage> {
                       const SizedBox(
                         height: 5,
                       ),
-                      Row(children: [
                         AppText(
                           text: "Number of people in group",
                           color: AppColors.mainTextColor,
-                        )
-                      ]),
+                        ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -159,38 +133,33 @@ class _DetailPageState extends State<DetailPage> {
                                 selectedIndex = index;
                               });
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 10.0),
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 10),
                               child: AppButtons(
-                                color: index == selectedIndex
-                                    ? AppColors.textColor1
-                                    : Colors.black26,
-                                backgroundColor: index == selectedIndex
-                                    ? AppColors.textColor1
-                                    : Colors.black26,
+                                color: selectedIndex == index
+                                    ? Colors.white
+                                    : Colors.black,
+                                backgroundColor: selectedIndex == index
+                                    ? Colors.black
+                                    : AppColors.buttonBackground,
                                 size: 50,
                                 text: (index + 1).toString(),
-                                borderColor: AppColors.buttonBackground,
+                                borderColor: selectedIndex == index
+                                    ? Colors.black
+                                    : AppColors.buttonBackground,
                               ),
                             ),
                           ),
                         ),
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
-                      Row(
-                        children: [
-                          AppLargeText(
-                            text: "Description",
-                            size: 20,
-                          ),
-                        ],
-                      ),
+                      AppLargeText(text: "Description", color: Colors.black.withOpacity(0.8)),
                       const SizedBox(
                         height: 5,
                       ),
-                      AppText(text: detailState.place.description),
+                      AppText(text: detailState.place.description, color:AppColors.mainTextColor),
                     ],
                   ),
                 ),
@@ -207,12 +176,12 @@ class _DetailPageState extends State<DetailPage> {
                           size: 60,
                           isIcon: true,
                           icon: Icons.favorite_border,
-                          borderColor: AppColors.textColor2),
+                          borderColor: AppColors.textColor1),
                       const SizedBox(
-                        width: 30,
+                        width: 20,
                       ),
                       ResponsiveButton(
-                        text: "Book Trip Now",
+
                         isResponsive: true,
                       )
                     ],
@@ -222,5 +191,4 @@ class _DetailPageState extends State<DetailPage> {
         ),
       );
     });
-  }
-}
+  }}

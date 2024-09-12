@@ -1,20 +1,36 @@
-import 'dart:nativewrappers/_internal/vm/lib/core_patch.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_app_flutter/widgets/app_text.dart';
 
-class AppLargeText extends StatelessWidget {
-  double size;
-  final String text;
+// ignore: must_be_immutable
+class AppButtons extends StatelessWidget {
   final Color color;
-  AppLargeText(
-      {Key? key, this.size = 30, required this.text, this.color = Colors.black})
-      : super(key: key);
+  final Color backgroundColor;
+  final double size;
+  String text;
+  bool isIcon;
+  IconData? icon;
+  final Color borderColor;
+  AppButtons({
+    super.key,
+    this.isIcon=false,
+    this.text = "Hi",
+    this.icon,
+    required this.color,
+    required this.backgroundColor,
+    required this.size,
+    required this.borderColor,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style:
-          TextStyle(color: color, fontSize: size, fontWeight: FontWeight.bold),
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+          border: Border.all(color: borderColor, width: 1.0),
+          borderRadius: BorderRadius.circular(15),
+          color: backgroundColor),
+      child: isIcon==false?Center(child: AppText(text:text, color:color)):Center(child: Icon(icon, color: color)),
     );
   }
 }

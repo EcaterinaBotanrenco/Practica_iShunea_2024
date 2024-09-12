@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:travel_app_flutter/misc/colors.dart';
 import 'package:travel_app_flutter/widgets/app_text.dart';
 
+// ignore: must_be_immutable
 class ResponsiveButton extends StatelessWidget {
   bool isResponsive;
   double? width;
   String text;
   ResponsiveButton({
-    Key? key,
+    super.key,
     this.width = 120,
     this.isResponsive = false,
     this.text = "",
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +29,8 @@ class ResponsiveButton extends StatelessWidget {
               ? MainAxisAlignment.spaceBetween
               : MainAxisAlignment.center,
           children: [
-            const SizedBox(
-              width: 5,
-            ),
-            AppText(
-              text: text,
-              color: Colors.white,
-            ),
+            isResponsive==true?Container(margin:const EdgeInsets.only(left: 20),
+                child: AppText(text: "Book trip now", color:Colors.white)):Container(),
             Image.asset("img/button-one.png")
           ],
         ),
