@@ -19,6 +19,7 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   int gottenStarts = 4;
   int selectedIndex = 1;
+  Color? color = AppColors.mainColor;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppCubits, CubitStates>(builder: (context, state) {
@@ -28,6 +29,7 @@ class _DetailPageState extends State<DetailPage> {
       for(int i=0; i<list.length; i++){
         if(list[i].name==detailState.place.name){
           selectedIndex = list[i].index!;
+          color = list[i].color;
         }
       }
 
@@ -142,19 +144,17 @@ class _DetailPageState extends State<DetailPage> {
                               var list = BlocProvider.of<StorePageInfoCubits>(context).state;
                               for(int i=0; i<list.length; i++){
                                 if(list[i].name==data.name){
-
                                   if(list[i].index==index){
-                                    print('we found a match with index ${selectedIndex}');
-                                  }
-                                  else{
-                                    BlocProvider.of<StorePageInfoCubits>(context).updatePageInfo(detailState.place.name, index);
+                                  }else{
+                                    print('updating info');
+                                    BlocProvider.of<StorePageInfoCubits>(context).updatePageInfo(data.name, index, color);
                                   }
                                 }
                               }
                               //only if a button was never clicked
                               if(selectedIndex == -1){
                                 print('inside a condition');
-                                BlocProvider.of<StorePageInfoCubits>(context).addPageInfo(detailState.place.name, index);
+                                BlocProvider.of<StorePageInfoCubits>(context).addPageInfo(detailState.place.name, index, color);
                               }
 
                               //BlocProvider.of<StorePageInfoCubits>(context).addPageInfo(detailState.place.name, index);
@@ -199,13 +199,63 @@ class _DetailPageState extends State<DetailPage> {
                   right: 28,
                   child: Row(
                     children: [
-                      AppButtons(
-                          color: AppColors.textColor1,
-                          backgroundColor: Colors.white,
-                          size: 60,
-                          isIcon: true,
-                          icon: Icons.favorite_border,
-                          borderColor: AppColors.textColor1),
+                      GestureDetector(
+                        onTap: (){
+                          var list = BlocProvider.of<StorePageInfoCubits>(context).state;
+                          if(list.isEmpty){
+                            setState(() {
+                              color = Colors.red;
+                            });
+                            BlocProvider.of<StorePageInfoCubits>(context)
+                                .updatePageWish(detailState.place.name, selectedIndex, color);}
+                          else{
+                            //only toggle the color
+                            for(int i=0; i<list.length; i++){
+                              if(list[i].name==detailState.place.name){
+                                if(list[i].color==Colors.red){
+                                  setState(() {
+                                  color = AppColors.mainColor;
+                                  });
+                                  Future.delayed(Duration.zero, (){
+                                    BlocProvider.of<StorePageInfoCubits>(context)
+                                        .updatePageWish(detailState.place.name, selectedIndex, color);
+                              });
+                                return;
+                              }else{
+                                  setState(() {
+                                  color = Colors.red;
+                                  });
+                                  BlocProvider.of<StorePageInfoCubits>(context)
+                                      .updatePageWish(detailState.place.name, selectedIndex, color);}
+                                  return;
+                              }
+                            else {
+                              if(color==AppColors.mainColor){
+                                setState(() {
+                                  color = Colors.red;
+                                });
+                                BlocProvider.of<StorePageInfoCubits>(context)
+                                    .updatePageWish(detailState.place.name, selectedIndex, color);}
+                              else{
+                                setState(() {
+                                  color==AppColors.mainColor;
+                                });
+                                BlocProvider.of<StorePageInfoCubits>(context)
+                                    .updatePageWish(detailState.place.name, selectedIndex, color);
+                          }
+                          }
+                          }
+                          }
+                       },
+                          child:AppButtons(
+                              color: AppColors.textColor1,
+                              backgroundColor: Colors.white,
+                              size: 60,
+                              isIcon: true,
+                              icon: Icons.favorite_border,
+                              borderColor: color!),
+                        ),
+
                       const SizedBox(
                         width: 20,
                       ),
@@ -221,3 +271,12 @@ class _DetailPageState extends State<DetailPage> {
       );
     });
   }}
+
+
+/*AppButtons(
+                          color: AppColors.textColor1,
+                          backgroundColor: Colors.white,
+                          size: 60,
+                          isIcon: true,
+                          icon: Icons.favorite_border,
+                          borderColor: AppColors.textColor1),*/

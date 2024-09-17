@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:travel_app_flutter/cubit/app_cubit.dart';
 import 'package:travel_app_flutter/cubit/app_cubit_logics.dart';
 import 'package:travel_app_flutter/pages/detail_pages/cubit/store_page_info_cubits.dart';
@@ -27,10 +26,10 @@ class MyApp extends StatelessWidget {
            create: (context) => AppCubits(
              data: DataServices(),
             ),
-          )
-          /*BlocProvider<StorePageInfoCubits>(
+          ),
+          BlocProvider<StorePageInfoCubits>(
            create: (context) => StorePageInfoCubits(),
-          )*/
+          ),
         ],
         child: const AppCubitLogics(),
       ),
