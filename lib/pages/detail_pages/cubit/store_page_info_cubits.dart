@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:bloc/bloc.dart';
 import 'package:travel_app_flutter/pages/detail_pages/cubit/store_page_info_states.dart';
-import '../../../misc/colors.dart';
+//import '../../../misc/colors.dart';
 
 
 class StorePageInfoCubits extends Cubit<List<StorePageInfoState>> {
