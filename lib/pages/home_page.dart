@@ -125,10 +125,59 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                       fit: BoxFit.cover),
                                 ),
                               ),
+
                             );
                           }),
-                      const Text("There"),
-                      const Text("Bye")
+                      /*const Text("There"),
+                      const Text("Bye")*/
+                      ListView.builder(
+                          itemCount: info.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: (){
+                                BlocProvider.of<AppCubits>(context).detailPage(info[index]);
+                              },
+                              child: Container(
+                                width: 200,
+                                height: 300,
+                                margin: const EdgeInsets.only(
+                                    right: 15, top: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white,
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          "http://mark.bslmeiyu.com/uploads/${info[index].img}"),
+                                      fit: BoxFit.cover),
+                                ),
+                              ),
+                            );
+                          }),
+                      ListView.builder(
+                          itemCount: info.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: (){
+                                BlocProvider.of<AppCubits>(context).detailPage(info[index]);
+                              },
+                              child: Container(
+                                width: 200,
+                                height: 300,
+                                margin: const EdgeInsets.only(
+                                    right: 15, top: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white,
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          "http://mark.bslmeiyu.com/uploads/${info[index].img}"),
+                                      fit: BoxFit.cover),
+                                ),
+                              ),
+                            );
+                          }),
                     ],
                   ),
                 ),

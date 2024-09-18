@@ -16,7 +16,7 @@ class StorePageInfoCubits extends Cubit<List<StorePageInfoState>> {
     var myList = state;
     for(int i=0; i<myList.length; i++){
       if(myList[i].name==name){
-        var rem = state.removeAt(i);
+        //var rem = state.removeAt(i);
       }
     }
     emit([StorePageInfoState(name:name, index: index, color: color), ...state]);
